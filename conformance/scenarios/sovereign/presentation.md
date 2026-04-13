@@ -286,9 +286,9 @@ ocm get resources http://127.0.0.1:5001//acme.org/sovereign/product:1.0.0 -o tre
 <!-- end_slide -->
 
 # Bootstrap with OCM Controllers (Repository)
+## OCM Repository pointing to local air-gapped registry
 
-```yaml
-# OCM Repository pointing to local air-gapped registry
+```yaml +line_numbers
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Repository
 metadata:
@@ -303,8 +303,14 @@ spec:
 <!-- end_slide -->
 
 # Bootstrap with OCM Controllers (Component)
+## OCM Component Version from air-gapped registry and signature verification
+The supply chain can also be automatically triggered as soon as a new version is available in the registry.
+For minor updates/patches or yolo major upgrades. 
+For example:
+* `semver: ">=1.0.x"` //automatically install patch versions >=1.0.x
+* `semverFilter: ".*-rc.*"` //skip pre-release candidates
 
-```yaml
+```yaml +line_numbers
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Component
 metadata:
@@ -324,8 +330,9 @@ spec:
 <!-- end_slide -->
 
 # Bootstrap with OCM Controllers (Resource)
+## Linking to a particular Resource in a Component Version
 
-```yaml
+```yaml +line_numbers
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Resource
 metadata:
@@ -339,11 +346,21 @@ spec:
       resource:
         name: product-rgd
 ```
+
+```
+COMPONENT                         NAME         VERSION IDENTITY TYPE      RELATION
+└─ acme.org/sovereign/product                  1.0.0
+   └─                             product-rgd  1.0.0            blob      local      <==== this!
+```
 <!-- end_slide -->
 
 # Bootstrap with OCM Controllers (Deployer)
+## Automatic Deployment of that Resource 
+The Deployer is extensible and works with simple K8s manifests.
+We advise/prefer to orchestrate with kro and RGDs, or a proper Operator. 
+This abstracts Helm and any other package and deployment tooling behind a declarative API surface.
 
-```yaml
+```yaml +line_numbers
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Deployer
 metadata:
