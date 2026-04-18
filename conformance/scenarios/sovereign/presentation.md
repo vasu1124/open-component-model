@@ -207,7 +207,7 @@ ocm get componentversions ctf::./tmp/transport-archive//acme.org/sovereign/produ
 
 ```bash +exec +pty:120:30 +acquire_terminal
 ocm get componentversions ctf::./tmp/transport-archive//acme.org/sovereign/product:1.0.0 -o yaml | 
-  bat --number -l yaml --pager less
+  bat --number -l yaml --paging=always
 ```
 <!-- end_slide -->
 
@@ -215,7 +215,7 @@ ocm get componentversions ctf::./tmp/transport-archive//acme.org/sovereign/produ
 
 ```bash +exec +pty:120:30 +acquire_terminal
 ocm get componentversions ctf::./tmp/transport-archive//acme.org/sovereign/product:1.0.0 -o yaml -S v3alpha1 |
-  bat --number -l yaml --pager less
+  bat --number -l yaml --paging=always
 ```
 <!-- end_slide -->
 
