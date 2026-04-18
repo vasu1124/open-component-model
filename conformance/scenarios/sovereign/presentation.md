@@ -304,11 +304,6 @@ spec:
 
 # Bootstrap with OCM Controllers (Component)
 ## OCM Component Version from air-gapped registry and signature verification
-The supply chain can also be automatically triggered as soon as a new version is available in the registry.
-For minor updates/patches or yolo major upgrades. 
-For example:
-* `semver: ">=1.0.x"` //automatically install patch versions >=1.0.x
-* `semverFilter: ".*-rc.*"` //skip pre-release candidates
 
 ```yaml +line_numbers
 apiVersion: delivery.ocm.software/v1alpha1
@@ -327,6 +322,18 @@ spec:
       secretRef:
         name: acme-signing-key
 ```
+```bash
+# PKI
+kubectl -n sovereign-product create secret generic acme-signing-key \
+        --from-file=default=keys/acme-public.pem
+```
+
+The supply chain can also be automatically triggered as soon as a new version is available in the registry.
+For minor updates/patches or yolo major upgrades. 
+For example:
+* `semver: ">=1.0.x"` //automatically install patch versions >=1.0.x
+* `semverFilter: ".*-rc.*"` //skip pre-release candidates
+
 <!-- end_slide -->
 
 # Bootstrap with OCM Controllers (Resource)
